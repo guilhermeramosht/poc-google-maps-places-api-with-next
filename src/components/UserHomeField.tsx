@@ -3,10 +3,10 @@ import AutocompleteField from "./common/AutocompleteField";
 import { Coordinations } from "@/pages";
 
 const UserAddressField = () => {
-  const { setOriginCoordinations } = useCoordinationsContext();
-  const handleSelection = (userOriginCoordinations: Coordinations) => {
-    if (!userOriginCoordinations) return;
-    setOriginCoordinations(userOriginCoordinations);
+  const { setSearchedCoordinations } = useCoordinationsContext();
+  const handleSelection = (usersearchedCoordinations: Coordinations) => {
+    if (!usersearchedCoordinations) return;
+    setSearchedCoordinations(usersearchedCoordinations);
   };
   return (
     <AutocompleteField

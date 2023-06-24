@@ -8,13 +8,13 @@ import {
 import { Coordinations } from "@/pages";
 
 interface CoordinationsContextProps {
-  originCoordinations: undefined | Coordinations;
-  setOriginCoordinations: Dispatch<SetStateAction<Coordinations | undefined>>;
+  searchedCoordinations: undefined | Coordinations;
+  setSearchedCoordinations: Dispatch<SetStateAction<Coordinations | undefined>>;
 }
 
 const CoordinationsContext = createContext<CoordinationsContextProps>({
-  originCoordinations: undefined,
-  setOriginCoordinations: () => {},
+  searchedCoordinations: undefined,
+  setSearchedCoordinations: () => {},
 });
 
 interface CoordinationsContextProviderProps {
@@ -24,13 +24,13 @@ interface CoordinationsContextProviderProps {
 const CoordinationsContextProvider: React.FC<
   CoordinationsContextProviderProps
 > = ({ children }) => {
-  const [originCoordinations, setOriginCoordinations] = useState<
+  const [searchedCoordinations, setSearchedCoordinations] = useState<
     undefined | Coordinations
   >(undefined);
 
   const value = {
-    originCoordinations,
-    setOriginCoordinations,
+    searchedCoordinations,
+    setSearchedCoordinations,
   };
 
   return (
