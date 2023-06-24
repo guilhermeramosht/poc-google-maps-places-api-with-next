@@ -1,20 +1,23 @@
-import { DestinyProps } from "@/pages";
-import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
-import { useState } from "react";
+import { useCoordinationsContext } from "@/context/CoordinationsContext.context";
+import useGetCurrentPosition from "@/hooks/useGetCurrentPosition";
+import { GoogleMap, Marker } from "@react-google-maps/api";
 
-interface MapProps {
-  destinyLatLng?: DestinyProps;
-}
+const Map = () => {
+  const { originCoordinations } = useCoordinationsContext();
 
-const Map = ({ destinyLatLng }: MapProps) => {
   return (
     <div className="w-1/2 min-h-full">
       <GoogleMap
-        zoom={10}
-        center={destinyLatLng}
+        zoom={14}
+        center={originCoordinations}
         mapContainerClassName="w-full h-full"
       >
-        {destinyLatLng && <Marker position={destinyLatLng} />}
+        {originCoordinations && (
+          <Marker
+            icon="http://localhost:3000/accommodation-3.svg"
+            position={originCoordinations}
+          />
+        )}
       </GoogleMap>
     </div>
   );
