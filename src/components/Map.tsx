@@ -1,9 +1,10 @@
 import { useCoordinationsContext } from "@/context/CoordinationsContext.context";
 import useGetCurrentPosition from "@/hooks/useGetCurrentPosition";
-import { GoogleMap } from "@react-google-maps/api";
+import { GoogleMap, Marker } from "@react-google-maps/api";
 
 const Map = () => {
-  const { searchedCoordinations } = useCoordinationsContext();
+  const { searchedCoordinations, interestingPlacesNearby } =
+    useCoordinationsContext();
   const { initialCoordinations } = useGetCurrentPosition();
 
   return (
@@ -12,7 +13,15 @@ const Map = () => {
         zoom={14}
         center={searchedCoordinations ?? initialCoordinations}
         mapContainerClassName="w-full h-full"
-      ></GoogleMap>
+      >
+        {interestingPlacesNearby.length &&
+          interestingPlacesNearby.map(({ coordinations }) => (
+            <Marker
+              key={JSON.stringify(coordinations)}
+              position={coordinations}
+            />
+          ))}
+      </GoogleMap>
     </div>
   );
 };

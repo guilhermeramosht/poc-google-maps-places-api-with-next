@@ -2,6 +2,8 @@ import YourHomeField from "@/components/YourHomeField";
 import Map from "@/components/Map";
 import { useLoadScript } from "@react-google-maps/api";
 import UserAddressField from "@/components/UserHomeField";
+import InterestingPlaceNearbyForm from "@/components/InterestingPlacesNearbyForm";
+import { useCoordinationsContext } from "@/context/CoordinationsContext.context";
 
 export interface Coordinations {
   lat: number;
@@ -9,6 +11,7 @@ export interface Coordinations {
 }
 
 const App = () => {
+  const { searchedCoordinations } = useCoordinationsContext();
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_API_KEY as string,
     libraries: ["places"],
@@ -21,6 +24,7 @@ const App = () => {
       <div className="w-1/2 min-h-full flex justify-center items-center">
         <div className="p-8 w-full flex flex-col gap-4">
           <UserAddressField />
+          {searchedCoordinations && <InterestingPlaceNearbyForm />}
         </div>
       </div>
       <Map />

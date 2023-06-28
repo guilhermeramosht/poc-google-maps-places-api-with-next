@@ -7,14 +7,25 @@ import {
 } from "react";
 import { Coordinations } from "@/pages";
 
+export interface InterestingPlaceNearby {
+  coordinations: Coordinations;
+  address: string;
+}
+
 interface CoordinationsContextProps {
   searchedCoordinations: undefined | Coordinations;
   setSearchedCoordinations: Dispatch<SetStateAction<Coordinations | undefined>>;
+  interestingPlacesNearby: InterestingPlaceNearby[];
+  setInterestingPlacesNearby: Dispatch<
+    SetStateAction<InterestingPlaceNearby[]>
+  >;
 }
 
 const CoordinationsContext = createContext<CoordinationsContextProps>({
   searchedCoordinations: undefined,
   setSearchedCoordinations: () => {},
+  interestingPlacesNearby: [],
+  setInterestingPlacesNearby: () => {},
 });
 
 interface CoordinationsContextProviderProps {
@@ -27,10 +38,15 @@ const CoordinationsContextProvider: React.FC<
   const [searchedCoordinations, setSearchedCoordinations] = useState<
     undefined | Coordinations
   >(undefined);
+  const [interestingPlacesNearby, setInterestingPlacesNearby] = useState<
+    InterestingPlaceNearby[]
+  >([]);
 
   const value = {
     searchedCoordinations,
     setSearchedCoordinations,
+    interestingPlacesNearby,
+    setInterestingPlacesNearby,
   };
 
   return (

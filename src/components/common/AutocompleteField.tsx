@@ -1,5 +1,6 @@
 import { Coordinations } from "@/pages";
 import { Autocomplete, TextField } from "@mui/material";
+import { AutocompleteProps } from "@react-google-maps/api";
 import usePlacesAutocomplete, {
   Status as PlaceAutocompleteStatus,
   getGeocode,
@@ -16,13 +17,15 @@ const getOptions = (
 };
 
 interface AutocompleteFieldProps {
-  onSelection: (value: Coordinations) => void;
+  onSelection: (value: Coordinations, address: string) => void;
   placeholder?: string;
+  clearOnSelect?: boolean;
 }
 
 const AutocompleteField: React.FC<AutocompleteFieldProps> = ({
   onSelection,
   placeholder,
+  clearOnSelect,
 }) => {
   const {
     value,
@@ -34,11 +37,9 @@ const AutocompleteField: React.FC<AutocompleteFieldProps> = ({
   const handleUserSelection = async (address: string | undefined) => {
     if (!address) return;
 
-    setValue(address, false);
-
     const [addressGeocode] = await getGeocode({ address });
     const { lat, lng } = getLatLng(addressGeocode);
-    onSelection({ lat, lng });
+    onSelection({ lat, lng }, address);
   };
 
   return (
